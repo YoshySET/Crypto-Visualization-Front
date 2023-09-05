@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import {styled, createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -17,11 +17,12 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import {mainListItems, secondaryListItems} from './listItems';
 import HOME from './index'
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import Title from "./Title";
 
 function Copyright(props: any) {
   return (
@@ -44,7 +45,7 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})<AppBarProps>(({theme, open}) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -60,8 +61,8 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+  ({theme, open}) => ({
     '& .MuiDrawer-paper': {
       position: 'relative',
       whiteSpace: 'nowrap',
@@ -97,8 +98,8 @@ export default function Dashboard() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
+      <Box sx={{display: 'flex'}}>
+        <CssBaseline/>
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
@@ -112,17 +113,17 @@ export default function Dashboard() {
               onClick={toggleDrawer}
               sx={{
                 marginRight: '36px',
-                ...(open && { display: 'none' }),
+                ...(open && {display: 'none'}),
               }}
             >
-              <MenuIcon />
+              <MenuIcon/>
             </IconButton>
             <Typography
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{flexGrow: 1}}
             >
               カイドキクリプト(仮)
             </Typography>
@@ -139,13 +140,13 @@ export default function Dashboard() {
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+              <ChevronLeftIcon/>
             </IconButton>
           </Toolbar>
-          <Divider />
+          <Divider/>
           <List component="nav">
             {mainListItems}
-            <Divider sx={{ my: 1 }} />
+            <Divider sx={{my: 1}}/>
             {secondaryListItems}
           </List>
         </Drawer>
@@ -161,8 +162,8 @@ export default function Dashboard() {
             overflow: 'auto',
           }}
         >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Toolbar/>
+          <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
             <Grid container spacing={3}>
               <HOME/>
               {/* Chart */}
@@ -175,7 +176,7 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  <Chart/>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -188,17 +189,17 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <Deposits/>
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+                  <Orders/>
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+            <Copyright sx={{pt: 4}}/>
           </Container>
         </Box>
       </Box>
