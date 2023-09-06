@@ -1,29 +1,76 @@
-import axios from "axios";
+import * as React from 'react';
+import {CssVarsProvider, StyledEngineProvider} from '@mui/joy/styles';
+import GlobalStyles from '@mui/joy/GlobalStyles';
+import CssBaseline from '@mui/joy/CssBaseline';
+import Box from '@mui/joy/Box';
+import useScript from '../../useScript';
+import Sidebar from '../../components/Sidebar';
+import Header from '../../components/Header';
+import MyProfile from '../../components/MyProfile';
 
-import {useState} from 'react';
-
-import Dashboard from "../../components/Dashboard";
-
+const useEnhancedEffect =
+  typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
 export default function Home() {
-  const [result, setResult] = useState<number | null>(null);
+  const status = useScript(`https://unpkg.com/feather-icons`);
 
-  const [cryptoName, setCryptoName] = useState('');
-
-  const handleChange = (event: any) => {
-    setCryptoName(event.target.value as string);
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.get("/api/get/crypto?param1=" + cryptoName);
-      setResult(response.data.content);
-    } catch (e) {
-      console.log(e);
+  useEnhancedEffect(() => {
+    // Feather icon setup: https://github.com/feathericons/feather#4-replace
+    // @ts-ignore
+    if (typeof feather !== 'undefined') {
+      // @ts-ignore
+      feather.replace();
     }
-  };
-
+  }, [status]);
   return (
-    <Dashboard/>
+    <StyledEngineProvider injectFirst>
+      <CssVarsProvider disableTransitionOnChange>
+        <GlobalStyles
+          styles={(theme) => ({
+            '[data-feather], .feather': {
+              color: `var(--Icon-color, ${theme.vars.palette.text.icon})`,
+              margin: 'var(--Icon-margin)',
+              fontSize: `var(--Icon-fontSize, ${theme.vars.fontSize.xl})`,
+              width: '1em',
+              height: '1em',
+            },
+          })}
+        />
+        <CssBaseline/>
+        <Box sx={{display: 'flex', minHeight: '100dvh'}}>
+          <Header/>
+          <Sidebar/>
+          <Box
+            component="main"
+            className="MainContent"
+            sx={(theme) => ({
+              '--main-paddingTop': {
+                xs: `calc(${theme.spacing(2)} + var(--Header-height, 0px))`,
+                md: '32px',
+              },
+              px: {
+                xs: 2,
+                md: 3,
+              },
+              pt: 'var(--main-paddingTop)',
+              pb: {
+                xs: 2,
+                sm: 2,
+                md: 3,
+              },
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              minWidth: 0,
+              height: '100dvh',
+              gap: 1,
+              overflow: 'auto',
+            })}
+          >
+            <MyProfile/>
+          </Box>
+        </Box>
+      </CssVarsProvider>
+    </StyledEngineProvider>
   );
 }
